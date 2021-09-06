@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html><head>
+  <title>Timers</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="site.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org//face/segment7" type="text/css" />
+	<script src="site.js" type="text/javascript"></script>
+
+</head>
+
+<body bgcolor="#000000">
+<table border="0" align="center">
+  <tr>
+    <td align="center" valign="top"><span class="sitename">%Nethost%</span></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><span class="title"><script>document.write(document.title);</script></span></td>
+  </tr>
+  <tr>
+    <td align="center" valign="top"><br><span class="date" id="ESPDATE">&nbsp;</span></td>
+  </tr>
+  <tr>
+    <td height="15" align="center" valign="top"><span align="center" class="led" id="ESPTIME"></span><br><font color="#FFFFFF">Hour - Min<BR>NTP Server Time</font></td>
+  </tr>
+</table>
+<p align="center"><span class="copy">This ESP32 has restarted </span><span class="copy" id="ESPBOOTS">&nbsp;</span><span class="copy"> times since </span><span class="copy" id="ESPBOOTDATE">&nbsp;</span></p>
+<div align="center">
+  	<form action="/get" target="hidden-form">
+	<input type="hidden" id="resetESP" name="resetESP" value="1"><input type="submit" class="reset" value="Reset Counter" onClick="submitMessage()">
+    </form>
+</div>
+<p align="center"><span class="copy">Local IP: </span><span class="copy" id="WIFIIP">&nbsp;</span></p>
+<table border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td valign="top">
+   	  <form action="/"><input type="submit" class="menu" value="Home" /></form>
+   </td>
+    <td valign="top">
+   	  <form action="/timers.html"><input type="submit" class="menu" value="Timers" disabled /></form>
+   </td>
+    <td valign="top">
+   	  <form action="/time.html"><input type="submit" class="menu" value="Time Settings" /></form>
+   </td>
+    <td valign="top">
+    	<form action="/ElegantOTA.html"><input type="submit" class="menu" value="AsyncElegantOTA" /></form>
+	</td>
+    <td valign="top">
+    	<form action="/network.html"><input type="submit" class="menu" value="Network Station" /></form>
+	</td>
+    <td valign="top">
+    	<form action="/softap.html"><input type="submit" class="menu" value="Access Point" /></form>
+	</td>
+  </tr>
+</table>
+<br>
+<table border="0" align="center" cellpadding="8" cellspacing="2">
+  <tr>
+  	<form action="/get" target="hidden-form">
+    <td width="150" align="center" valign="top" bgcolor="#FFFF66"><strong>Timer1 On</strong></td>
+    <td width="150"align="center" valign="top" bgcolor="#666666" ><input type="button" id="Timer1on" value="%Timer1on%" size="6" disabled></td>
+    <td width="250" align="center" valign="top" bgcolor="#FFFFFF"><input type="time" id="Timer1on" name="Timer1on" value="%Timer1on%"></td>
+    <td width="115" align="center" valign="top" bgcolor="#4CAF50"><input type="submit" class="update" onClick="submitMessage()" value="Update"></td>
+    </form>
+  </tr>
+  <tr>
+  	<form action="/get" target="hidden-form">
+    <td width="150" align="center" valign="top" bgcolor="#FFFF66"><strong>Timer1 Off</strong></td>
+    <td width="150"align="center" valign="top" bgcolor="#666666" ><input type="button" id="Timer1off" value="%Timer1off%" size="6" disabled></td>
+    <td width="250" align="center" valign="top" bgcolor="#FFFFFF"><input type="time" id="Timer1off" name="Timer1off" value="%Timer1off%"></td>
+    <td width="115" align="center" valign="top" bgcolor="#4CAF50"><input type="submit" class="update" onClick="submitMessage()" value="Update"></td>
+    </form>
+  </tr>
+  <tr>
+  	<form action="/get" target="hidden-form">
+    <td align="center" valign="top" bgcolor="#FFFF66"><strong>Timer1 Switch</strong></td>
+    <td align="center" valign="top" bgcolor="#666666"><input type="button" id="Timer1switch" value="%Timer1switch%" size="6" disabled></td>
+    <td align="center" valign="top" bgcolor="#FFFFFF"><font size="-1" face="0Font">Off <input type="range" id="Timer1switch" min="0" max="1" step="1" name="Timer1switch" value="%Timer1switch%" onChange="updateTimer1switch(this.value);" class="switch"> On</font></td>
+    <td align="center" valign="top" bgcolor="#4CAF50"><input type="submit" class="update" onClick="submitMessage()" value="Update"></td>
+    </form>
+  </tr>
+  <tr>
+  	<form action="/get" target="hidden-form">
+    <td width="150" align="center" valign="top" bgcolor="#FFFF66"><strong>Timer2 On</strong></td>
+    <td width="150"align="center" valign="top" bgcolor="#666666" ><input type="button" id="Timer2on" value="%Timer2on%" size="6" disabled></td>
+    <td width="250" align="center" valign="top" bgcolor="#FFFFFF"><input type="time" id="Timer2on" name="Timer2on" value="%Timer2on%"></td>
+    <td width="115" align="center" valign="top" bgcolor="#4CAF50"><input type="submit" class="update" onClick="submitMessage()" value="Update"></td>
+    </form>
+  </tr>
+  <tr>
+  	<form action="/get" target="hidden-form">
+    <td width="150" align="center" valign="top" bgcolor="#FFFF66"><strong>Timer2 Off</strong></td>
+    <td width="150"align="center" valign="top" bgcolor="#666666" ><input type="button" id="Timer2off" value="%Timer2off%" size="6" disabled></td>
+    <td width="250" align="center" valign="top" bgcolor="#FFFFFF"><input type="time" id="Timer2off" name="Timer2off" value="%Timer2off%"></td>
+    <td width="115" align="center" valign="top" bgcolor="#4CAF50"><input type="submit" class="update" onClick="submitMessage()" value="Update"></td>
+    </form>
+  </tr>
+  <tr>
+  	<form action="/get" target="hidden-form">
+    <td align="center" valign="top" bgcolor="#FFFF66"><strong>Timer2 Switch</strong></td>
+    <td align="center" valign="top" bgcolor="#666666"><input type="button" id="Timer2switch" value="%Timer2switch%" size="6" disabled></td>
+    <td align="center" valign="top" bgcolor="#FFFFFF"><font size="-1" face="0Font">Off <input type="range" id="Timer2switch" min="0" max="1" step="1" name="Timer2switch" value="%Timer2switch%" onChange="updateTimer2switch(this.value);" class="switch"> On</font></td>
+    <td align="center" valign="top" bgcolor="#4CAF50"><input type="submit" class="update" onClick="submitMessage()" value="Update"></td>
+    </form>
+  </tr>
+</table>
+<br>
+<table border="0" width="800" align="center" cellpadding="3" cellspacing="10">
+  <tr>
+    <td bgcolor="#000000" class="copy" valign="top">
+    <p align="left">Before you get started here, these timer require the NTP Server to be functioning. The NTP Server requires the internet, so before you do anything, configure the network, restart the ESP32, then open this page through the local network IP.</p>
+    <p align="left">Here there is two timers. Timer1 is programmed to turn the ESP32s built-in LED (GPIO 02) on and off, providing your ESP32 has one. My Wroom has a red power LED and a second blue LED on GPIO 02. Timer2 has no programmimg behind it. If your connected to a computer useing the USB, the Serial Monitor does provide messages for both timers On and Off activations.</p>
+    <p align="left">Using the controls for Timer1, select a time in the &quot;Timer1 On&quot; row. Pick a time that is within a few minutes from the current time. Then click the Update button. Now select a different time for the &quot;Timer1 Off&quot;, again withing a few minutes and click the Update button. The &quot;Timer1 Switch&quot; is used to turn the timer On or Off. By default it is in the Off position. Move the Timer1 slider to the On position, click the Update button. If you select the exact time for both &quot;Timer1 On&quot; and &quot;Timer1 Off&quot;, it will disable the timer, The same as having the &quot;Timer1 Switch&quot; in the Off position. Now sit back and watch the LED.</p>
+    <p align="left">&nbsp;</p></td>
+  </tr>
+</table>
+
+
+<iframe style="display:none" name="hidden-form"></iframe>
+
+</body>
+</html>
+
