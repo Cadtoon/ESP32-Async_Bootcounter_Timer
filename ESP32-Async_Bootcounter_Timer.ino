@@ -386,8 +386,9 @@ void setupWEBSERVER(){
   });
 // handle IP requests
   webserver.on("/WIFIIP", HTTP_GET, [](AsyncWebServerRequest *request){
-    String ipAsString = WiFi.localIP().toString().c_str(); //convert the IP address to a string. I am told this wouldn't work in C++. Arduino does it!
-    request->send(200, "text/plain", ipAsString); //send back converted string
+    char wifiip[40];
+    snprintf(wifiip, sizeof(wifiip), "%d.%d.%d.%d", WiFi.localIP()[0], WiFi.localIP()[1], WiFi.localIP()[2], WiFi.localIP()[3]);
+    request->send(200, "text/plain", wifiip); //send back converted string
   });
 // new to include reboot data
   webserver.on("/ESPBOOTS", HTTP_GET, [](AsyncWebServerRequest *request){
